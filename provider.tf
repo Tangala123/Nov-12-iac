@@ -2,6 +2,15 @@
 provider "aws" {
   region = var.region
 }
+terraform {
+  backend "s3" {
+    bucket         = "your-bucket-name"
+    key            = "path/to/your/terraform.tfstate"
+    region         = "your-bucket-region"
+    dynamodb_table = "terraform-lock"  # Optional, for state locking
+    encrypt        = true              # Optional, to enable server-side encryption
+  }
+}
 
 # terraform init - Intializing the provider plugins
 # terraform plan - Preview the code and showing what resources will be creating
